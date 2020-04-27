@@ -1,5 +1,5 @@
-import express from 'express';
-import Orders from '../models/Orders';
+import express from "express";
+import Orders from "../models/Orders";
 
 const router = express.Router();
 
@@ -20,7 +20,7 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  Orders.findByIdAndUpdate(req.body.id, req.body).then((x) => res.status(204).send(x));//OJO CON EL 204
+  Orders.findByIdAndUpdate(req.params.id, req.body).then(() => res.sendStatus(204)); 
 });
 
 router.delete("/:id", (req, res) => {

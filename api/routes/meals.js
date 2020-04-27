@@ -20,7 +20,9 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  Meals.findByIdAndUpdate(req.body.id, req.body).then((x) => res.status(204).send(x));//OJO CON EL 204
+  Meals.findByIdAndUpdate(req.params.id, req.body).then(() =>
+    res.sendStatus(204)
+  ); 
 });
 
 router.delete("/:id", (req, res) => {
