@@ -6,17 +6,17 @@ const router = express.Router();
 router.get("/", (req, res) => {
   Meals.find()
     .exec()
-    .then((x) => res.send(x));
+    .then(x => res.status(200).send(x));
 });
 
 router.get("/:id", (req, res) => {
   Meals.findById(req.params.id)
     .exec()
-    .then((x) => res.status(200).send(x));
+    .then(x => res.status(200).send(x));
 });
 
 router.post("/", (req, res) => {
-  Meals.create(req.body).then((x) => res.status(201).send(x));
+  Meals.create(req.body).then(x => res.status(201).send(x));
 });
 
 router.put("/:id", (req, res) => {
