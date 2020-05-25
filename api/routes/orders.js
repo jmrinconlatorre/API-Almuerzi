@@ -1,6 +1,6 @@
 import express from 'express';
 import Orders from '../models/Orders';
-import isAuthenticated from '../auth';
+import { isAuthenticated, hasRoles } from '../auth';
 
 const router = express.Router();
 
@@ -16,8 +16,8 @@ router.get("/:id", (req, res) => {
     .then((x) => res.status(200).send(x));
 });
 
-router.post("/", isAuthenticated, (req, res) => {
-  const { _id } =req.user;
+router.post("/", isAuthenticated, hasRoles(['admin','user']), (req, res) => {
+  const { _id } = req.user;
 
   Orders.create({ ...req.body, user_id: _id }).then((x) => res.status(201).send(x));
 });

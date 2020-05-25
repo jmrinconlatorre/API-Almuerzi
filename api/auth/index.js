@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import Users from "../models/Users";
 
-export default (req, res, next) => {
+const isAuthenticated = (req, res, next) => {
   const token = req.headers.authorization;
 
   if (!token) {
@@ -18,3 +18,11 @@ export default (req, res, next) => {
       });
   });
 };
+
+const hasRoles = roles => (req, res, next) => {
+    if(roles.indexOf(req.user.role) > -1) {
+        return next();
+    }
+}
+
+export { isAuthenticated, hasRoles }

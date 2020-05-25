@@ -2,6 +2,7 @@ import express from 'express';
 import crypto, { pbkdf2 } from 'crypto';
 import Users from '../models/Users';
 import jwt from 'jsonwebtoken';
+import { isAuthenticated } from '../auth';
 
 const router = express.Router();
 
@@ -54,6 +55,10 @@ router.post('/login', (req, res) => {
         return res.send('Usuario y/o contraseña incorrecta')
       });
     });
+});
+
+router.get('/me', isAuthenticated, (req, res) => {
+  res.send(req.user);
 });
 
 export default router;
